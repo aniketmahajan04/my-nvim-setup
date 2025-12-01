@@ -102,7 +102,7 @@ let g:colors_name = 'github_dark_default_custom'
  "Highlight groups
  "=====================
 
-highlight Normal        guifg=#c9d1d9 guibg=#0d1117
+highlight Normal        guifg=#58a6ff guibg=#0d1117
 highlight NormalFloat   guifg=#c9d1d9 guibg=#161b22
 highlight Comment       guifg=#8b949e
 highlight TSComment     guifg=#8b949e

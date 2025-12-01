@@ -69,3 +69,5 @@ vim.cmd.colorscheme("custom")
 
 utils.fix_telescope_parens_win()
 utils.dashboard.setup_dashboard_image_colors()
+
+vim.opt.clipboard = "unnamedplus"
