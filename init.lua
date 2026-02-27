@@ -6,54 +6,6 @@ vim.env.PATH = vim.env.PATH .. ":/home/sendo/.cargo/bin"
 
 local utils = require("utils")
 
--- Complete string.buffer polyfill for Neovim LSP compatibility
--- local ok, _ = pcall(require, "string.buffer")
--- if not ok then
--- 	local buffer_mt = {
--- 		__index = {
--- 			put = function(self, ...)
--- 				for i = 1, select("#", ...) do
--- 					local val = select(i, ...)
--- 					table.insert(self, tostring(val))
--- 				end
--- 				return self
--- 			end,
--- 			putf = function(self, fmt, ...)
--- 				table.insert(self, string.format(fmt, ...))
--- 				return self
--- 			end,
--- 			get = function(self)
--- 				return table.concat(self)
--- 			end,
--- 			tostring = function(self)
--- 				return table.concat(self)
--- 			end,
--- 			reset = function(self)
--- 				for i = 1, #self do
--- 					self[i] = nil
--- 				end
--- 				return self
--- 			end,
--- 			skip = function(self)
--- 				return self
--- 			end,
--- 			set = function(self, str)
--- 				self:reset()
--- 				table.insert(self, tostring(str))
--- 				return self
--- 			end,
--- 		},
--- 		__tostring = function(self)
--- 			return table.concat(self)
--- 		end,
--- 	}
---
--- 	package.loaded["string.buffer"] = {
--- 		new = function(size)
--- 			return setmetatable({}, buffer_mt)
--- 		end,
--- 	}
--- end
 
 require("options")
 require("keymaps")
@@ -61,14 +13,24 @@ require("custom_filetypes")
 require("lazynvim")
 require("cool_stuff")
 require("mappings")
-require("highlight")
 
 utils.color_overrides.setup_colorscheme_overrides()
 
-vim.cmd.colorscheme("custom")
+-- vim.cmd.colorscheme("custom")
 -- vim.opt.laststatus = 0 -- hide status line
+-- Force laststatus to 0 ONLY when in TMUX
+if vim.env.TMUX ~= nil then
+    -- Create an autocommand group to force settings after plugins load
+    local tmux_ui_group = vim.api.nvim_create_augroup("TmuxUIFix", { clear = true })
 
-utils.fix_telescope_parens_win()
-utils.dashboard.setup_dashboard_image_colors()
-
-vim.opt.clipboard = "unnamedplus"
+    vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
+        group = tmux_ui_group,
+        callback = function()
+            vim.opt.laststatus = 0
+            vim.opt.cmdheight = 0
+            vim.opt.showmode = false
+            -- If you use Lualine, this command kills it for the current session
+            pcall(function() require('lualine').hide() end)
+        end,
+    })
+end

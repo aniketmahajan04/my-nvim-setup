@@ -396,6 +396,7 @@ return {
           "eslint",
           "zls",
           "intelephense",
+          "gopls"
         },
       })
     end,

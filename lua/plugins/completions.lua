@@ -13,7 +13,6 @@ return {
 
 					luasnip.add_snippets("markdown", require("snippets.notes"))
 					luasnip.add_snippets("text", require("snippets.notes"))
-					luasnip.add_snippets("tex", require("snippets.latex"))
 					luasnip.add_snippets("zig", require("snippets.zig"))
 					luasnip.add_snippets("c", require("snippets.c"))
 				end,

@@ -50,6 +50,38 @@ return {
 
         "IblScope"
       },
+      include = {
+        node_type = {
+        -- Functions / Methods
+        "function",
+        "function_definition",
+        "method",
+        "method_definition",
+          
+        -- Conditionals
+        "if_statement",
+        "else_clause",
+        "elseif_clause",
+
+        -- Loops
+        "for_statement",
+        "while_statement",
+
+        -- Blocks
+        "block",
+        "statement_block",
+        "do_block",
+        "compound_statement",
+
+        -- Lua table
+        "table_constructor",
+        "table",
+
+        -- Optional (not scopes but can be visually helpful)
+        "assignment_statement",
+        "variable_declaration",
+        }
+      }
     },
   },
 
@@ -76,6 +108,7 @@ return {
     -- 2. Use the IBL hook to define custom highlight groups
     -- This ensures the highlights are reapplied whenever the colorscheme changes.
     local hooks = require "ibl.hooks"
+    
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
       -- Indent line colors (thin lines)
       -- vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#E06C75", nocombine = true })
@@ -98,6 +131,11 @@ return {
 
       vim.api.nvim_set_hl(0, "IblScope", { fg = "#61afef", nocombine = true })
     end)
-    require("ibl").setup(opts)
+    require("ibl").setup { scope = { highlight = highlight } }
+
+    hooks.register(
+      hooks.type.SCOPE_HIGHLIGHT,
+      hooks.builtin.scope_highlight_from_extmark
+    )
   end
 }

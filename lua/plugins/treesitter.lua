@@ -10,7 +10,6 @@ return {
 			ensure_installed = {
 				"typst",
 				"purescript",
-				"nim",
 				"vimdoc",
 				"go",
 				"rust",
@@ -21,6 +20,7 @@ return {
 				"css",
 				"javascript",
 				"typescript",
+				"tsx",
 				"haskell",
 				"zig",
 				"gleam",
