@@ -37,6 +37,7 @@ return {
 				enabled = true,
 				window = {
 					show_documentation = false,
+          border = "rounded"
 				},
 			},
 			completion = {
@@ -48,10 +49,15 @@ return {
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 0,
+          window = {
+            border = "rounded",
+          }
 				},
 				menu = {
 					auto_show = true,
-					scrollbar = false,
+					scrollbar = false,    
+          border = "rounded",
+           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
 					draw = {
 						columns = {
 							{ "kind_icon" },
@@ -60,6 +66,7 @@ return {
 							{ "label_description", gap = 1 },
 							{ "source_name", gap = 1 },
 						},
+            
 						components = {
 							kind_icon = {
 								ellipsis = false,

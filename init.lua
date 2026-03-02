@@ -4,6 +4,11 @@ vim.env.PATH = vim.env.PATH .. ":/home/sendo/.cargo/bin"
 -- Yazy cli(ya)
 vim.env.PATH = vim.env.PATH .. ":/home/sendo/.cargo/bin"
 
+vim.opt.laststatus = 0 -- hide status line
+vim.opt.cmdheight = 1
+vim.opt.clipboard = "unnamedplus"
+vim.opt.showmode = false
+
 local utils = require("utils")
 
 
@@ -13,24 +18,18 @@ require("custom_filetypes")
 require("lazynvim")
 require("cool_stuff")
 require("mappings")
+require("plugins.terminal")
 
 utils.color_overrides.setup_colorscheme_overrides()
 
 -- vim.cmd.colorscheme("custom")
--- vim.opt.laststatus = 0 -- hide status line
 -- Force laststatus to 0 ONLY when in TMUX
-if vim.env.TMUX ~= nil then
-    -- Create an autocommand group to force settings after plugins load
-    local tmux_ui_group = vim.api.nvim_create_augroup("TmuxUIFix", { clear = true })
+utils.fix_telescope_parens_win()
+utils.dashboard.setup_dashboard_image_colors()
 
-    vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
-        group = tmux_ui_group,
-        callback = function()
-            vim.opt.laststatus = 0
-            vim.opt.cmdheight = 0
-            vim.opt.showmode = false
-            -- If you use Lualine, this command kills it for the current session
-            pcall(function() require('lualine').hide() end)
-        end,
-    })
-end
+vim.opt.winblend = 0
+vim.opt.pumblend = 0
+
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })

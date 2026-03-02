@@ -8,6 +8,13 @@ return {
   },
   lazy = false,
   opts = {
+    enable_git_status = true,
+    enable_diagnostics = true,
+    use_libuv_file_watcher = true,
+    renderers = {
+
+    },
+    enable_statusline = false,
     window = {
         position = "left",
         width = 35,
@@ -25,7 +32,9 @@ return {
 
     vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { silent = true })
     vim.keymap.set("n", "<leader>o", "<cmd>Neotree filesystem reveal<CR>", { silent = true })
-  vim.keymap.set("n", "<leader>>", "<cmd>vertical resize +1<CR>")
-vim.keymap.set("n", "<leader><", "<cmd>vertical resize -1<CR>")
+    vim.keymap.set("n", "<leader>>", "<cmd>vertical resize +1<CR>")
+    vim.keymap.set("n", "<leader><", "<cmd>vertical resize -1<CR>")
+
+    vim.opt.laststatus = 0
   end,
 }

@@ -47,5 +47,11 @@ return {
 	}
 	})
 		vim.cmd("colorscheme rose-pine")
+     -- 👇 ADD THIS HERE
+    vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "NormalFloat" })
+    vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
+    vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "CursorLine" })
+    vim.api.nvim_set_hl(0, "BlinkCmpDoc", { link = "NormalFloat" })
+    vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { link = "FloatBorder" })
 	end
 }
